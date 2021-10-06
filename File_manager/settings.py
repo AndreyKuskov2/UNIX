@@ -6,3 +6,4 @@ class Settings(object):
     """
     def __init__(self, path):
         os.chdir(path)
+        
