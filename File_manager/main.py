@@ -16,27 +16,14 @@ def get_instructions():
 
 def main():
     flag = 0
-    ###################################Test###############################################
-    # file_manager.new_dir("dir")
-    # #file_manager.rm_dir("dir")
-    # file_manager.moving_dir("dir")
-    # file_manager.new_file("file1.txt")
-    # file_manager.redirection("file1.txt")
-    # print("----------------------------------------------")
-    # file_manager.my_cat("file1.txt")
-    # file_manager.copy_file("file1.txt", "C:/Users/Andrey/Программы/UNIX/File_manager/mydir")
-    # #file_manager.move_file("file2.txt", "C:/Users/Andrey/Программы/UNIX/File_manager/mydir")
-    # file_manager.rename_file("file2.txt", "1")
-    # #file_manager.rm_file("file1.txt")
-    #######################################################################################
 
     while True:
         if(flag == 0):
             #path = str(input("Укажите путь до рабочей директории: "))
-            path = "C:/Users/Andrey/Программы/UNIX/File_manager/mydir"
+            path = "C:/Users/Andrey/Programs/UNIX/File_manager"
             file_manager = FileManager(path)
             flag = 1
-        print("Рабочая директория:", file_manager.get_address())
+        print("Рабочая директория:", os.getcwd())
         x = str(input("Введите команду (help для вызова инструкции): "))
         if(x == "nd"):
             x = str(input("Введите название новой папки: "))

@@ -19,8 +19,9 @@ class FileManager(Settings):
         try:
             os.mkdir(name)
             print(f"Папка {name} создана")
+            return 1
         except OSError:
-            print("Директория уже существует!")
+            raise OSError("Директория уже существует!")
 
     def rm_dir(self, name):
         """
@@ -29,8 +30,9 @@ class FileManager(Settings):
         try:
             os.rmdir(name)
             print(f"Папка {name} удалена")
+            return 1
         except OSError:
-            print("Директории не существует!")
+            raise OSError("Директории не существует!")
 
     def moving_dir(self, name):
         """
@@ -38,8 +40,9 @@ class FileManager(Settings):
         """
         try:
             os.chdir(name)
+            return 1
         except OSError:
-            print("Директории не существует!")
+            raise OSError("Директории не существует!")
 
     def new_file(self, name):
         """
@@ -47,10 +50,10 @@ class FileManager(Settings):
         """
         files = os.listdir(os.getcwd())
         if (name in files):
-            print("Файл существует!")
-            return 0
+            raise OSError("Файл существует!")
         with open(name, "w", encoding='utf-8') as file:
             pass
+        return 1
 
     def redirection(self, name):
         """
@@ -58,12 +61,11 @@ class FileManager(Settings):
         """
         files = os.listdir(os.getcwd())
         if (name not in files):
-            print("Файла не существует!")
-            return 0
+            raise OSError("Файла не существует!")
         with open(name, "a", encoding='utf-8') as file:
             text = str(input("Введите текст, который хотите добавить в файл: "))
             file.write(text)
-
+        return 1
 
     def my_cat(self, name):
         """
@@ -71,11 +73,11 @@ class FileManager(Settings):
         """
         files = os.listdir(os.getcwd())
         if (name not in files):
-            print("Файла не существует!")
-            return 0
+            raise OSError("Файла не существует!")
         with open(name, "r", encoding='utf-8') as file:
             text = file.read()
             print(text)
+        return 1
 
     def rm_file(self, name):
         """
@@ -84,8 +86,9 @@ class FileManager(Settings):
         try:
             os.remove(name)
             print("Файл", name, "удален!")
+            return 1
         except FileNotFoundError:
-            print("Файл не найден!")
+            raise FileNotFoundError("Файл не найден!")
 
     def copy_file(self, file_name, finish_path):
         """
@@ -94,8 +97,9 @@ class FileManager(Settings):
         try:
             shutil.copy(file_name, finish_path)
             print(f"Файл {file_name} скопирован в {finish_path}!")
+            return 1
         except FileNotFoundError:
-            print("Файл не найден!")
+            raise FileNotFoundError("Файл не найден!")
 
     def move_file(self, file_name, finish_path):
         """
@@ -104,8 +108,9 @@ class FileManager(Settings):
         try:
             shutil.move(file_name, finish_path)
             print(f"Файл {file_name} перемещен в {finish_path}")
+            return 1
         except (FileNotFoundError, shutil.Error):
-            print("Файл не найден!")
+            raise FileNotFoundError("Файл не найден!")
 
     def rename_file(self, file_name, finish_name):
         """
@@ -114,8 +119,7 @@ class FileManager(Settings):
         try:
             os.rename(file_name, finish_name)
             print(f"Файл {file_name} переименован в {finish_name}")
+            return 1
         except FileNotFoundError:
-            print("Файл не найден!")
-
-    def get_address(self):
-        return os.getcwd()
+            raise FileNotFoundError("Файл не найден!")
+            
